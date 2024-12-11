@@ -1,0 +1,132 @@
+[gd_scene load_steps=18 format=3 uid="uid://d2vgi43x3r8e3"]
+
+[ext_resource type="Script" path="res://Bowl.gd" id="1_proye"]
+[ext_resource type="PackedScene" uid="uid://cnwp7ndjr4s8y" path="res://Quest2Controllers/OculusQuest2TouchController_Left.gltf" id="2_fvlog"]
+[ext_resource type="Script" path="res://LineRenderer.gd" id="3_hiwbr"]
+[ext_resource type="Script" path="res://right_controller.gd" id="4_7pj07"]
+[ext_resource type="PackedScene" uid="uid://bc8lh0rihgxvi" path="res://Quest2Controllers/OculusQuest2TouchController_Right.gltf" id="5_f7vks"]
+[ext_resource type="Texture2D" uid="uid://cni8qcesun7wa" path="res://WoodFloor051_1K-JPG_Color.jpg" id="6_y1p5c"]
+[ext_resource type="PackedScene" uid="uid://c1b3h6bwpvl6y" path="res://ball.tscn" id="11_d3q2h"]
+[ext_resource type="PackedScene" uid="uid://b403vfk1y244x" path="res://pin.tscn" id="11_ybscy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_npxo6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_lctsu"]
+sky_material = SubResource("ProceduralSkyMaterial_npxo6")
+
+[sub_resource type="Environment" id="Environment_5hng7"]
+background_mode = 2
+sky = SubResource("Sky_lctsu")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_6kh0m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52oh8"]
+albedo_color = Color(0.368627, 1, 1, 0.643137)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_7wel7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_76m3i"]
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6ppt"]
+albedo_texture = ExtResource("6_y1p5c")
+
+[sub_resource type="BoxMesh" id="BoxMesh_vcm6p"]
+size = Vector3(10, 0.1, 10)
+
+[node name="ThrowBall" type="Node3D"]
+script = ExtResource("1_proye")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5hng7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.02949)
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="OculusQuest2TouchController_Left" parent="XROrigin3D/LeftController" instance=ExtResource("2_fvlog")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
+mesh = SubResource("ImmediateMesh_6kh0m")
+script = ExtResource("3_hiwbr")
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+script = ExtResource("4_7pj07")
+
+[node name="OculusQuest2TouchController_Right" parent="XROrigin3D/RightController" instance=ExtResource("5_f7vks")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="XROrigin3D/RightController"]
+target_position = Vector3(0, 0, -0.8)
+collision_mask = 256
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
+material_override = SubResource("StandardMaterial3D_52oh8")
+mesh = SubResource("ImmediateMesh_7wel7")
+script = ExtResource("3_hiwbr")
+points = [Vector3(0, 0, 0), Vector3(0, 0.2, 0)]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_mask = 257
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_76m3i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+material_override = SubResource("StandardMaterial3D_w6ppt")
+mesh = SubResource("BoxMesh_vcm6p")
+
+[node name="Ball" parent="." instance=ExtResource("11_d3q2h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.394947, 0.24435, 3.9172)
+
+[node name="Ball2" parent="." instance=ExtResource("11_d3q2h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340021, 0.24435, 3.9172)
+
+[node name="Pin" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.350089, -3.47501)
+
+[node name="Pin10" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.716792, 0.350089, -4.43755)
+
+[node name="Pin9" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.245757, 0.350089, -4.43755)
+
+[node name="Pin8" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266236, 0.350089, -4.42731)
+
+[node name="Pin7" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.727032, 0.350089, -4.41707)
+
+[node name="Pin6" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.350089, -4.11373)
+
+[node name="Pin5" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.491328, 0.350089, -4.11373)
+
+[node name="Pin4" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.491329, 0.350089, -4.12356)
+
+[node name="Pin2" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.253604, 0.350089, -3.80949)
+
+[node name="Pin3" parent="." instance=ExtResource("11_ybscy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266289, 0.350089, -3.81973)
+
+[connection signal="button_pressed" from="XROrigin3D/RightController" to="XROrigin3D/RightController" method="_on_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/RightController" to="XROrigin3D/RightController" method="_on_button_released"]
+[connection signal="input_float_changed" from="XROrigin3D/RightController" to="XROrigin3D/RightController" method="_on_input_float_changed"]

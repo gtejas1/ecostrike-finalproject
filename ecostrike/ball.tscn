@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1b3h6bwpvl6y"]
+
+[ext_resource type="Material" uid="uid://djgh5jndr40l6" path="res://Blue_ball.tres" id="1_un78p"]
+[ext_resource type="PackedScene" uid="uid://csbq24gda1ran" path="res://RedBowlingBall/scene.gltf" id="2_l8v51"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c8384"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b76wu"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e83ku"]
+radius = 0.2
+
+[node name="Ball" type="Node3D"]
+
+[node name="RigidBodySphere1" type="RigidBody3D" parent="."]
+collision_layer = 256
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_c8384")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="RigidBodySphere1"]
+physics_interpolation_mode = 2
+visible = false
+material_override = SubResource("StandardMaterial3D_b76wu")
+radius = 0.2
+material = ExtResource("1_un78p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBodySphere1"]
+shape = SubResource("SphereShape3D_e83ku")
+
+[node name="Sketchfab_Scene" parent="RigidBodySphere1" instance=ExtResource("2_l8v51")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
