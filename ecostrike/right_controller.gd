@@ -158,3 +158,9 @@ func _on_button_released(name: String) -> void:
 		
 	if name == "by_button":
 		XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
+		
+	if name == "grip_click":
+		load_new_scene()
+
+func load_new_scene():
+	get_tree().change_scene_to_file("res://BowlingBall.tscn")

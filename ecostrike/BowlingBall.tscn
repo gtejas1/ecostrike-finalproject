@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d2vgi43x3r8e3"]
+[gd_scene load_steps=19 format=3 uid="uid://d2vgi43x3r8e3"]
 
 [ext_resource type="Script" path="res://Bowl.gd" id="1_proye"]
 [ext_resource type="PackedScene" uid="uid://cnwp7ndjr4s8y" path="res://Quest2Controllers/OculusQuest2TouchController_Left.gltf" id="2_fvlog"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://right_controller.gd" id="4_7pj07"]
 [ext_resource type="PackedScene" uid="uid://bc8lh0rihgxvi" path="res://Quest2Controllers/OculusQuest2TouchController_Right.gltf" id="5_f7vks"]
 [ext_resource type="Texture2D" uid="uid://cni8qcesun7wa" path="res://WoodFloor051_1K-JPG_Color.jpg" id="6_y1p5c"]
+[ext_resource type="PackedScene" uid="uid://d34t8gfuut7ba" path="res://monitor.tscn" id="9_nq5tv"]
 [ext_resource type="PackedScene" uid="uid://c1b3h6bwpvl6y" path="res://ball.tscn" id="11_d3q2h"]
 [ext_resource type="PackedScene" uid="uid://b403vfk1y244x" path="res://pin.tscn" id="11_ybscy"]
 
@@ -97,35 +98,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.394947, 0.24435, 3.9172)
 [node name="Ball2" parent="." instance=ExtResource("11_d3q2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340021, 0.24435, 3.9172)
 
-[node name="Pin" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.350089, -3.47501)
 
-[node name="Pin10" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin10" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.716792, 0.350089, -4.43755)
 
-[node name="Pin9" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin9" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.245757, 0.350089, -4.43755)
 
-[node name="Pin8" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin8" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266236, 0.350089, -4.42731)
 
-[node name="Pin7" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin7" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.727032, 0.350089, -4.41707)
 
-[node name="Pin6" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin6" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.350089, -4.11373)
 
-[node name="Pin5" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin5" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.491328, 0.350089, -4.11373)
 
-[node name="Pin4" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin4" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.491329, 0.350089, -4.12356)
 
-[node name="Pin2" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin2" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.253604, 0.350089, -3.80949)
 
-[node name="Pin3" parent="." instance=ExtResource("11_ybscy")]
+[node name="Pin3" parent="." groups=["pins"] instance=ExtResource("11_ybscy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266289, 0.350089, -3.81973)
+
+[node name="Monitor" parent="." instance=ExtResource("9_nq5tv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 
 [connection signal="button_pressed" from="XROrigin3D/RightController" to="XROrigin3D/RightController" method="_on_button_pressed"]
 [connection signal="button_released" from="XROrigin3D/RightController" to="XROrigin3D/RightController" method="_on_button_released"]

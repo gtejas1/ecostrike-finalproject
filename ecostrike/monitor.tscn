@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d34t8gfuut7ba"]
+
+[ext_resource type="PackedScene" uid="uid://ccxpkeijuyagj" path="res://hanging_monitor/scene.gltf" id="1_cl4fl"]
+
+[node name="Monitor" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_cl4fl")]
